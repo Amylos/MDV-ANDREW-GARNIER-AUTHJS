@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cive Lampus</title>
+</head>
+<body>
+    <nav>
+        <h1>Cive Lampus</h1>
+        <button>Login</button>
+        <form method="GET" action="/api/logout">
+            <button>Logout</button>
+        </form>
+        <button id="profileButton">Profile</button>
+    </nav>
+    <%= user.firstName %>
+    <%= user.lastName %>
+    <%= user.role %>
+    <p id="id"><%= user.id %></p>
+
+</body>
+</html>
+
+<script>
+    const userId = document.getElementById("id").innerText;
+    console.log(userId);
+
+
+    const profileButton = document.getElementById("profileButton");
+
+    profileButton.addEventListener('click', (event)=>{
+        console.log('click profileButton');
+        event.preventDefault();
+
+        fetch('http://localhost:3000/api/auth/token', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: "include"
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error("Error:", error));
+    });
+
+
+</script>
+
+<style>
+</style>
+
