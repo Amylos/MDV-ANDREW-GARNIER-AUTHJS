@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -20,6 +21,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.0",
     "nodemon": "^3.1.9",
+    "otpauth": "^9.4.0",
+    "qrcode": "^1.5.4",
     "sequelize": "^6.37.7"
   }
 }

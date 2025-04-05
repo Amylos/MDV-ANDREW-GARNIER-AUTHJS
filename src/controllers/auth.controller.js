@@ -6,8 +6,33 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports.Register = async(req,res) =>{
+
+
+
     const {email, password, firstName, lastName,age, address, phone} = req.body;
     try{
+
+        const adminUser = await User.findOne({ where: { role: 'admin' } });
+
+        if (!adminUser) {
+            const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, parseInt(process.env.SALT));
+            const newAdmin =  await User.create({
+                username: process.env.ADMIN_USERNAME,
+                email: process.env.ADMIN_EMAIL,
+                hashedPassword: hashedPassword,
+                firstName: process.env.ADMIN_FIRST_NAME,
+                lastName: process.env.ADMIN_LAST_NAME,
+                role: 'admin',
+            });
+
+            const userDetails = await Details.create({
+                userId : newAdmin.dataValues.id,
+                age : 100,
+                address : "address Test",
+                phone: " 00 00 00 00 00"
+            });
+            console.log('Admin user created');
+        }
         const existingUser = await User.findOne({ where: { email } });
         if(existingUser) return res.status(400).json({message : "User already in the database"});
 
@@ -51,8 +76,13 @@ module.exports.Login = async(req,res) =>{
             id : existingUser.id,
             firstName : existingUser.firstName,
             lastName : existingUser.lastName,
-            role : existingUser.role
+            email: existingUser.email,
+            role : existingUser.role,
+            totpSecret: null,
+            mfaValidated: false
         });
+        req.session.authenticated = true;
+
         res.redirect('/home');
     }
     catch(ex){
@@ -66,22 +96,11 @@ module.exports.Logout = async(req,res) =>{
         res.clearCookie('token');
         res.clearCookie('user');
         res.redirect('/login');
+        req.session.authenticated = false;
     }
     catch(ex){
         console.error("Server error:", ex);
         res.status(500).json({ message: "Server error", error: ex.message });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

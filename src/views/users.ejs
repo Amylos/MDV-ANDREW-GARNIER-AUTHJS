@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Management</title>
+  <style>
+      /* Global styles */
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          background-color: #f6f8fa;
+          color: #24292f;
+          margin: 0;
+          padding: 0;
+      }
+
+      header {
+          background-color: #24292f;
+          color: white;
+          padding: 20px;
+          text-align: center;
+      }
+
+      h1 {
+          font-size: 28px;
+          font-weight: 600;
+          margin: 0;
+      }
+
+      #user-list {
+          max-width: 1200px;
+          margin: 20px auto;
+          padding: 20px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .user-item {
+          background-color: #f9f9f9;
+          padding: 20px;
+          border-radius: 8px;
+          margin-bottom: 15px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .user-item p {
+          font-size: 16px;
+          color: #24292f;
+          margin: 5px 0;
+      }
+
+      .user-item p strong {
+          color: #0366d6;
+      }
+
+      .user-item select {
+          padding: 6px 12px;
+          font-size: 14px;
+          border: 1px solid #e1e4e8;
+          border-radius: 5px;
+          background-color: #fff;
+          color: #24292f;
+          margin-top: 10px;
+      }
+
+      .user-item:last-child {
+          margin-bottom: 0;
+      }
+
+      hr {
+          border: 1px solid #e1e4e8;
+          margin-top: 20px;
+      }
+
+      .delete-btn {
+          padding: 6px 12px;
+          background-color: #d9534f;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin-top: 10px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+          #user-list {
+              padding: 10px;
+          }
+
+          .user-item {
+              padding: 15px;
+          }
+      }
+  </style>
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <div id="user-list"></div>
+
+  <%- include('partials/footer') %>
+
+  <script>
+    fetch("http://localhost:3000/api/users", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: "include"
+    })
+    .then(response => response.json())
+    .then(data => {
+        const container = document.getElementById('user-list');
+        container.innerHTML = '';
+
+        data.forEach(user => {
+            const item = document.createElement('div');
+            item.classList.add('user-item');
+            item.innerHTML = `
+                <p><strong>ID:</strong> ${user.id}</p>
+                <p><strong>Last Name:</strong> ${user.lastName}</p>
+                <p><strong>First Name:</strong> ${user.firstName}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <label for="role-${user.id}">Role:</label>
+                <select id="role-${user.id}">
+                    <option value="student" ${user.role === 'student' ? 'selected' : ''}>Student</option>
+                    <option value="teacher" ${user.role === 'teacher' ? 'selected' : ''}>Teacher</option>
+                    <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                </select>
+                <button class="delete-btn" data-id="${user.id}">Delete</button>
+                <hr>
+            `;
+
+            const select = item.querySelector(`#role-${user.id}`);
+            select.addEventListener('change', (event) => {
+                const newRole = event.target.value;
+
+                fetch(`http://localhost:3000/api/role/${user.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({ role: newRole })
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Error updating the role");
+                    return response.json();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Failed to update the role");
+                });
+            });
+
+            // Add event listener for the delete button
+            const deleteButton = item.querySelector('.delete-btn');
+            deleteButton.addEventListener('click', (event) => {
+                const userId = event.target.getAttribute('data-id');
+
+                fetch(`http://localhost:3000/api/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: "include"
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Error deleting the user");
+                    return response.json();
+                })
+                .then(() => {
+                    // Remove the user item from the list
+                    item.remove();
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Failed to delete the user");
+                });
+            });
+
+            container.appendChild(item);
+        });
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+  </script>
+</body>
+</html>

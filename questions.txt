@@ -1,0 +1,95 @@
+1. Comment définiriez-vous l'auhtentification ? (Quels sont ses mécanismes, à quoi sert-elle ?)
+
+    L'authentification est le fait de pouvoir vérifier l'identiter d'une personne, d'un utilisateur.
+    On utilise généralement le couple identifiant/mot de passe pour s'authentifier. L'identifiant servant
+    d'identité et le mot de passe à certifier cette identité.
+
+2. Quelles sont les différences avec l'authorisation ?
+
+    L'authorisation est le fait d'avoir des droits d'accès ou d'actions qui sont différent en fonction de l'utilisateur
+    et des droits qui lui ont été accordés.
+
+3. Qu'est-ce qu'un facteur d'authentification ?
+
+    Un facteur d'athentification est un moyen grâce aulequel on peut retrouver l'identité d'une personne.
+    Par un mot de passe que l'utilisateur possède ou par ce qu'il est (empreinte digitale).
+
+4. Citez 3 méthodes d'authentification
+
+    On peut trouver l'authentification par couple identifiant/mot de passe,
+    l'authentification biométrique grâce aux emptruntes digital ou encore
+    par l'utilisation d'un outil externe comme une clé USB par exemple
+
+5. Qu'est-ce que le hashage ?
+
+    Le hashage est utilisé pour chiffrer des données les transformant en une valeur fixe
+    tel que les mots de passes par exemple, c'est un procédé irréversible.
+
+
+6. À quoi sert le sel dans le hashage ?
+
+    Le sel dans le hashage est une valeur aléatoire qu'on va utiliser pour transformer le cryptage
+    générer par le hashage de façon à chiffrer de façon unique les données
+
+7. Qu'est-ce que le chiffrement ?
+
+    Le chiffrement est utilisé pour rendre des données sensibles illisible sans la clé appropriée pour les
+    déchiffré.
+
+8. Qu'est-ce que l'attaque par force brute ? Et comment s'en prémunir ?
+
+    Une attaque par force brute est le fait d'essayer un très grand nombre de combinaison
+    à la suite dans le but de forcer un mot de passe par exemple. Cela peut être fait en utilisant des suites logiques
+    ou des dictionnaires de mots de passes.
+
+    On peut s'en prémunir en créant un chargement d'une seconde entre chaque tentative de connexion par exemple
+    ou en prévoyant un nombre maximum d'essaie dans un temps donné.
+
+9. Quels sont les points d'attentions lors d'un développement d'un système d'authentification ?
+(architecture, code, dépendences, etc...)
+
+    Utiliser des architectures qui ont fait leur preuves, des modèles qui sont fiables et qui permettent de
+    protéger les couches les plus sensibles, éviter les mots de passe en clair, chiffrer les mots de passes
+    dans les bases de données.
+    Au sein de son code, se prémunir face aux injections SQL en vérifiants les inputs des utilisateurs
+    qui peuvent être facilement la source d'attaque.
+
+    Utiliser des dépendances qui ne possèdent pas d'importantes failles de sécurité, on peut par ailleurs
+    vérifier le nombre de téléchargement des dépendances, et faire attention à celle qui sont peu utiliser.
+
+10. Expliquer le principe d'authentification multifacteur ?
+
+    L'authentification multi facteur met en place une authentification qui fait appel à un autre moyen que
+    le simple couple identifiant/mot de passe. Renforçant d'autant plus la sécurité pour une application.
+    C'est par exemple le cas lorsqu'on reçoit un sms ou un mail après une tentative de connexion ou 
+    d'une action qui se veut sensible.
+
+11. Qu'est-ce qu'une attaque CSRF ? Comment peut-on s'en protéger ?
+
+    Une attaque CSRF ou Cross site reference est le fait de tromper un utilisateur en lui faisant faire des actions
+    sur une application en pensant qu'il est sur une autre application ou site web.
+
+12. Expliquez ce que représente pour vous le principe de session, de cookies et de headers.
+
+    La session est stocké côté serveur, elle peut être liée à un identifiant d'utilsateur pour le garder connecter.
+
+    Le headers, c'est par là que transite les informations sur les requêtes, les méthodes utilisés,
+    les cookies transmis les jeton d'authentification par exemple.
+
+    Les cookies sont des données qui vont être stockés côté client et transmise aux serveurs pour garder les données 
+    importantes et utiles.
+
+13. Par quel protocole est sécurisé l'échange d'information entre un client web et un serveur web ?
+
+    Par le protocol https.
+
+Expliquez les grands principes
+14. Qu'est-ce qu'un token JWT ? De quoi est-il composé ?
+
+    Un token JWT est composé de crédentials ( ds informations ), d'une clef secrète et d'un header. Il sert à vérifier l'authentification d'un utilisateur
+    aux travers de requêtes sans qu'il ai à s'authentifier à chaque fois.
+
+15. Qu'est-ce que l'OAuth 2 ? Qu'est-ce qu'il résoud ?
+
+    L'OAuth2 est l'utilisation d'une source externe à l'application qui va prendre en charge l'authentification
+    à la place de l'application elle même.

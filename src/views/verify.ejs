@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div id="mfa-container">
+
+    <h2>MFA Verification</h2>
+
+    <% if (qr) { %>
+    <p>Scan this QR CODE to authenticate</p>
+    <img src="<%= qr %>" alt="QR Code">
+    <% } %>
+
+    <form action="/verify" method="POST">
+        <label for="token">Code MFA :</label>
+        <input type="text" name="token" required>
+        <button type="submit">Verify</button>
+    </form>
+
+    <% if (error) { %>
+    <p style="color:red;"><%= error %></p>
+    <% } %>
+</div>
+<%- include('partials/footer') %>
+
+<style>
+
+    #mfa-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>

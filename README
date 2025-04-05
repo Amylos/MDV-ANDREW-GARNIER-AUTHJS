@@ -1,4 +1,23 @@
+# AuthJS - Application de Gestion Utilisateurs avec Rôles, JWT et MFA
 
+## Description
 
+Ce système de gestion des utilisateurs propose trois rôles distincts avec des permissions bien définies :
 
+- **Student** : Peut uniquement consulter son propre profil.
+- **Teacher** : Peut consulter son propre profil ainsi que la liste des étudiants.
+- **Admin** : Peut consulter la liste des étudiants et des enseignants, et a la capacité de modifier les rôles des utilisateurs.
 
+## Fonctionnalités
+
+- 🔐 Authentification sécurisée via **JWT** (JSON Web Token)
+- 🔒 Protection des routes selon les rôles
+- ✅ **MFA (Authentification Multi-Facteurs)** requis pour accéder à la liste des enseignants
+- 🛠️ Création automatique d’un **utilisateur admin** à la première exécution de l’application, avec identifiants définis dans le fichier `.env`
+- 🗄️ Utilisation de **MySQL** comme base de données relationnelle, gérée via **Sequelize ORM**
+
+## Configuration
+
+Crée un fichier `.env` à la racine du projet avec les variables dans le .env.example
+
+Un script SQL est inclus dans le projet pour : la création de tables et l'insertion d'users aléatoires

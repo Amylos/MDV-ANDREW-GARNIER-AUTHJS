@@ -1,0 +1,14 @@
+Globalement, les principales difficultés ont été liées au débogage de l'application,
+notamment le besoin de s'authentifier à chaque fois pour tester l'authentification
+ou la création d'un compte, ainsi que le test des routes avec des rôles différents.
+Cette partie a clairement été aussi longue que la simple création de l'application
+en elle même. Après la 100 ème connexion d'affilé ...
+
+La mise en place du MFA a également été un peu compliquée de mon côté,
+en ayant simplement suivi l'exemple du cours j'ai eu quelques difficultés à l'adapter aux projets.
+
+Pour résumer, je n'ai pas rencontré de grandes difficultés,
+mais je me suis trouvé particulièrement lent dans l'accomplissement
+de cette tâche et la production de ce devoir.
+La mise en place de la sécurité n'a pas été la partie la plus chronophage.
+

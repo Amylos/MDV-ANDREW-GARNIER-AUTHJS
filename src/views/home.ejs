@@ -4,52 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cive Lampus</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #24292f;
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #0366d6;
+        }
+
+        .content {
+            padding: 30px;
+            margin: 0 auto;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 18px;
+            color: #24292f;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #0366d6;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #004a99;
+        }
+
+        footer {
+            padding: 20px;
+            background-color: #24292f;
+            color: white;
+            text-align: center;
+            margin-top: auto;
+        }
+
+    </style>
 </head>
 <body>
-    <nav>
-        <h1>Cive Lampus</h1>
-        <button>Login</button>
-        <form method="GET" action="/api/logout">
-            <button>Logout</button>
-        </form>
-        <button id="profileButton">Profile</button>
-    </nav>
-    <%= user.firstName %>
-    <%= user.lastName %>
-    <%= user.role %>
-    <p id="id"><%= user.id %></p>
+
+    <%- include('partials/header') %>
+
+    <div class="content">
+        <h1>Not Welcome to Cive Lampus</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero voluptatem magnam eius consectet
+            ur at quas expedita. Impedit dolore itaque laudantium nesciunt saepe? Impedit eligendi repellendus delectus, ipsum facere est adipisci.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero voluptatem magnam eius consectet
+            ur at quas expedita. Impedit dolore itaque laudantium nesciunt saepe? Impedit eligendi repellendus delectus, ipsum facere est adipisci.
+        </p>
+        <p>
+            <strong>Not Ready to get started?</strong> Click below to create an account and unlock all the not amazing features of Cive Lampus.
+        </p>
+        <a href="/register" class="cta-button">Create an Account</a>
+    </div>
+
+    <%- include('partials/footer') %>
 
 </body>
 </html>
-
-<script>
-    const userId = document.getElementById("id").innerText;
-    console.log(userId);
-
-
-    const profileButton = document.getElementById("profileButton");
-
-    profileButton.addEventListener('click', (event)=>{
-        console.log('click profileButton');
-        event.preventDefault();
-
-        fetch('http://localhost:3000/api/auth/token', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: "include"
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.error("Error:", error));
-    });
-
-
-</script>
-
-<style>
-</style>
-

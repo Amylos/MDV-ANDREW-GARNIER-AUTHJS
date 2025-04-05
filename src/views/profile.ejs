@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #24292f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .user-profile {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-profile h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #0366d6;
+        }
+
+        .user-profile p {
+            font-size: 16px;
+            color: #24292f;
+            margin: 8px 0;
+        }
+
+        .user-profile p strong {
+            color: #0366d6;
+        }
+
+        #result {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #24292f;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .user-profile {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    
+    <% if(user) { %>
+        <div class="user-profile">
+            <h2>User Profile</h2>
+            <p><strong>First Name:</strong> <%= user.firstName %></p>
+            <p><strong>Last Name:</strong> <%= user.lastName %></p>
+            <p><strong>Role:</strong> <%= user.role %></p>
+            <p id="id" style="display: none;"><%= user.id %></p>
+        </div>
+    <% } else { %>
+        <p>User not found.</p>
+    <% } %>
+
+    <div id="result"></div>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        const userId = document.getElementById("id") ? document.getElementById("id").innerText : null;
+        if (userId) {
+            fetch(`http://localhost:3000/api/details/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include"
+            })
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('result');
+                container.innerHTML = `
+                    <div class="user-profile">
+                        <h2>Additional Details</h2>
+                        <p><strong>ID:</strong> ${data.id}</p>
+                        <p><strong>User ID:</strong> ${data.userId}</p>
+                        <p><strong>Age:</strong> ${data.age}</p>
+                        <p><strong>Address:</strong> ${data.address}</p>
+                        <p><strong>Phone:</strong> ${data.phone}</p>
+                    </div>
+                `;
+            })
+            .catch(error => console.error("Error:", error));
+        } else {
+            console.error("User ID not found.");
+        }
+    </script>
+</body>
+</html>

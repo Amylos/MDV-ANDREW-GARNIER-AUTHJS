@@ -1,0 +1,25 @@
+Dans un premier temps, j'ai créé les routes, les contrôleurs et la base de données
+avant de me concentrer sur le développement des vues. Une fois le site développé,
+j'ai intégré les jetons d'authentification et les rôles, avant de finaliser avec l'implémentation du MFA.
+
+Cette approche m'a permis d'avoir une vue d'ensemble de l'application
+avant de restreindre progressivement les accès.
+
+J'ai choisi d'utiliser EJS, n'étant pas encore très familier avec,
+dans l'optique de découvrir cet outil. Je l'ai trouvé relativement pratique,
+et la problématique de la transmission de données entre les vues,
+qui m'effrayait au départ, a été dissipée grâce à l'utilisation des cookies.
+
+J'ai également voulu scinder mon application en différentes couches :
+la gestion de la base de données dans les contrôleurs,
+les vues dans le dossier des views, et l'authentification dans les middlewares.
+J'ai organisé les routes pour séparer celles de l'API de celles des vues.
+
+Concernant le CSS, j'ai utilisé une IA pour générer l'ensemble des feuilles de style.
+
+
+
+
+
+
+
